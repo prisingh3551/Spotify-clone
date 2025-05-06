@@ -118,6 +118,8 @@ body {
     display: flex;
     align-items: center;
     text-align: center;
+    font-size: 15px;
+    color: #888;
 }
 
 .songList ul {
