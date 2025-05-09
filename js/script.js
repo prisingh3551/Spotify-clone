@@ -16,7 +16,7 @@ function secondsToMinutesSeconds(seconds) {
 let currFolder;
 async function getSongs(folder) {
     currFolder = folder;
-    let a =  await fetch(`/spotify%20clone/songs/${currFolder}/`)
+    let a =  await fetch(`/songs/${currFolder}/`)
     let response = await a.text()
     let div = document.createElement("div")
     div.innerHTML = response
@@ -35,14 +35,14 @@ async function getSongs(folder) {
     for (const song of songs) {
         songUL.innerHTML = songUL.innerHTML + 
         `<li>
-            <img id="music-icon" src="/spotify clone/img/music.svg">
+            <img id="music-icon" src="/img/music.svg">
             <div class="info">
                 <div>${song.replaceAll("%20", " ")}</div>
                 <div>Priya</div>
             </div>
             <div class="playNow">
                 <span>Play Now</span>
-                <img src="/spotify clone/img/play.svg"">
+                <img src="/img/play.svg"">
             </div>
         </li>`
     }
@@ -58,19 +58,19 @@ async function getSongs(folder) {
 }
 const playMusic = (track, pause = false) => {
     // Reset the song source and play
-    currentSong.src = `/spotify%20clone/songs/${currFolder}/` + track
+    currentSong.src = `/songs/${currFolder}/` + track
 
     if(!pause) {
         // if song is not paused, then play the song
         currentSong.play()
-        play.src = "/spotify clone/img/pause.svg"
+        play.src = "/img/pause.svg"
     }
     document.querySelector(".songInfo").innerHTML = decodeURI(track)
     document.querySelector(".songTime").innerHTML = "00:00 / 00:00"
 }
 
 async function displayAlbums() {
-    let a = await fetch(`/spotify%20clone/songs/`)
+    let a = await fetch(`/songs/`)
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response
@@ -87,7 +87,7 @@ async function displayAlbums() {
             let response = await a.json()
             cardContainer.innerHTML = cardContainer.innerHTML + `<div class="card" data-folder="${folder}">
                     <img src="${e.href}/cover.jpg">
-                    <img class="card-play" src="/spotify clone/img/play.svg">
+                    <img class="card-play" src="/img/play.svg">
                     <h2>${response.title}</h2>
                     <p>${response.description}</p>
                 </div>
@@ -115,10 +115,10 @@ async function main() {
     play.addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play()
-            play.src = "/spotify clone/img/pause.svg"
+            play.src = "/img/pause.svg"
         } else {
             currentSong.pause()
-            play.src = "/spotify clone/img/play.svg"
+            play.src = "/img/play.svg"
         }
     })
 
@@ -181,12 +181,12 @@ async function main() {
     // Add an event listener to mute the volume
     document.querySelector(".volume > img").addEventListener("click", (e) => {
         if(e.target.src.includes("volume.svg")) {
-            e.target.src = "/spotify clone/img/mute.svg";
+            e.target.src = "/img/mute.svg";
             currentSong.volume = 0;
             document.querySelector(".volume").getElementsByTagName("input")[0].value = 0;
         }
         else {
-            e.target.src = "/spotify clone/img/volume.svg";
+            e.target.src = "/img/volume.svg";
             currentSong.volume = 0.1;
             document.querySelector(".volume").getElementsByTagName("input")[0].value = 10;
         }
